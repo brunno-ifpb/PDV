@@ -1,0 +1,59 @@
+{% extends 'home/base.html' %}
+{% block conteudo %}
+<div class="container mt-5">
+    <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <h1>Cadastro de Estoque</h1>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="text" placeholder="Nome do Produto" name="nome" required>
+            <div class="invalid-feedback">Por favor, preencha o nome do produto.</div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="number" placeholder="Quantidade" name="quantidade" required>
+            <div class="invalid-feedback">Por favor, preencha a quantidade.</div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="text" placeholder="Valor" name="valor" required>
+            <div class="invalid-feedback">Por favor, preencha o valor.</div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="date" placeholder="Validade" name="validade" required>
+            <div class="invalid-feedback">Por favor, selecione a data de validade.</div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="text" placeholder="Lucro" name="lucro" required>
+            <div class="invalid-feedback">Por favor, preencha o valor do lucro.</div>
+        </div>
+        <div class="mb-3">
+            <input class="form-control" type="file" name="img" placeholder="Imagem" accept="image/*" required>
+            <div class="invalid-feedback">Por favor, selecione uma imagem.</div>
+        </div>
+        <div class="mb-3">
+            <button type="submit" value="submit" class="btn form-control btn-primary">Adicionar</button>
+        </div>
+    </form>
+    <div class="mb-3">
+        <form action="{% url 'estoque' %}"><button class="form-control">Ver estoque</button></form>
+    </div>
+</div>
+
+<script>
+    // Adicionar validação de formulário Bootstrap
+    ;(() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+{% endblock %}

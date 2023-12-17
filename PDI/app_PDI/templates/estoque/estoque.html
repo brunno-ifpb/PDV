@@ -1,0 +1,37 @@
+{% extends 'home/base.html' %}
+{% block conteudo %}
+
+<div class="container mt-5">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
+                    <th>Validade</th>
+                    <th>Lucro</th>
+                    <th>Imagem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in produtos %}
+                <tr>
+                    <td>{{ produto.id_produto }}</td>
+                    <td>{{ produto.nome }}</td>
+                    <td>{{ produto.quantidade }}</td>
+                    <td>R$ {{ produto.valor }}</td>
+                    <td>{{ produto.validade }}</td>
+                    <td>R$ {{ produto.lucro }}</td>
+                    <td>
+                        <img src="{{ produto.img.url }}" alt="{{ produto.nome }}" class="img-thumbnail" style="max-width: 100px;">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

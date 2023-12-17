@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% block conteudo %}
+<div style="text-align: center;" class="container mt-5">
+    <div class="mb-3">
+        <h1>Home</h1>
+    </div>
+    <div class="mb-3">
+        <form action="{% url 'vendas_produtos' %}"><button class=" form-control" onmouseover="this.className='btn btn-primary form-control'" onmouseout="this.className='form-control'">Caixa</button></form>
+    </div>
+    <div class="mb-3">
+        <form action="{% url 'estoque_home' %}"><button class="form-control" onmouseover="this.className='btn btn-primary form-control'" onmouseout="this.className='form-control'">Estoque</button></form>
+    </div>
+    <div class="mb-3">
+        <button class="form-control" onmouseover="this.className='btn btn-primary form-control'" onmouseout="this.className='form-control'">Admin</button>
+    </div>
+</div>
+    
+{% endblock %}

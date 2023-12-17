@@ -1,0 +1,59 @@
+{% extends 'home/base.html' %}
+{% block conteudo %}
+
+<div class="container">
+    <div class="card card-body shadow-lg mb-4 mt-5" name="identificacao">
+        <h2 class="mb-3">Identificação</h2>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="Nome do funcionario" name="nome" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="CPF" name="CPF" pattern="\d{3}\.?\d{3}\.?\d{3}-?\d{2}" \ maxlength="14" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="RG" name="RG" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="PIS/Pasep" name="PIS/Pasep" required>
+        <input class="form-control mb-2 shadow-sm" type="date" placeholder="data de nascimento" name="nascimento" required>
+        <input class="form-control mb-2 shadow-sm" type="file" name="foto_pessosal" placeholder="foto do funcionario" accept="image/*" required>
+        <input class="form-control mb-2 shadow-sm" type="file" name="img" placeholder="comprovante de residencia" accept="image/*" required>
+        <input class="form-control mb-2 shadow-sm" type="file" name="img" placeholder="comprovante de escolaridade" accept="image/*" required>
+    </div>
+    <div class="card card-body shadow-lg mb-4" name="empresa">
+        <h2 class="mb-3">Empresa</h2>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="CTPS" name="CPTS" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="cargo" name="cargo" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="salario" name="salario" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="departamento" name="departamento" required>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="situação" name="situacao" required>
+        <input class="form-control mb-2 shadow-sm" type="date" placeholder="data de contratação" name="efetivado" required>
+        <input class="form-control mb-2 shadow-sm" type="file" name="curriculo" placeholder="curriculo" accept="image/*" required>
+        
+    </div>
+
+    
+    <div class="card card-body shadow-lg mb-4" name="contato">
+        <h2 class="mb-3">Contatos</h2>
+        <input class="form-control mb-2 shadow-sm" type="text" placeholder="Endereço" name="endereco" required>
+        <input class="form-control mb-2 shadow-sm" type="number" placeholder="Telefone 1" name="numero1" id="numero1" required>
+        <input class="form-control mb-2 shadow-sm" type="number" placeholder="Telefone 2" name="numero2" id="numero2">
+        <input class="form-control mb-2 shadow-sm" type="email" placeholder="Email" name="email" id="email" required>
+
+    </div>
+    <div class="card card-body shadow-lg mb-5 form-row">
+        <h2 class="mb-3">Senha</h2>
+        <form class="row g-3">
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Senha</label>
+                <input class="form-control mb-2 shadow-sm" type="text" placeholder="Senha" name="senha" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword4">Confirme a Senha</label>
+                <input class="form-control mb-2 shadow-sm" type="text" placeholder="Confirme a senha" name="senha_confirmacao" required>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+
+{% endblock %}
+
+endereco = models.TextField(max_length=255)
+    numero_contato1 = models.CharField(max_length=15)
+    numero_contato2 = models.CharField(max_length=15, blank=True, null=True)
+    Email = models.EmailField()
