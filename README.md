@@ -1,2 +1,2 @@
-# PDI
- Sistema de caixa de mercado (PDI) com com possibilidade de multiplos caixas
+# PDV
+ Sistema de caixa de mercado (PDV) com com possibilidade de multiplos caixas
