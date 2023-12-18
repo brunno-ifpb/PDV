@@ -10,7 +10,7 @@ class Produtos(models.Model):
     valor = models.IntegerField()
     validade = models.TextField()
     lucro = models.IntegerField()
-    lot = models.IntegerField()
+    lot = models.IntegerField(default=0)
     img = models.ImageField()
 
 class Funcionarios(models.Model):

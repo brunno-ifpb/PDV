@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Produtos
+import pdb
 """import pyrebase
 
 config = {
@@ -20,22 +21,59 @@ def home(request):
     return render(request, 'home/home.html')
 
 def vendas(request):
-    produto = None
+    carrinho = request.session.get('carrinho', {})
+    
+    
 
-    if request.method == 'POST':
-        nome_produto = request.POST.get('produto')
-        quantidade = request.POST.get('quantidade')
-        print(nome_produto)
+    if request.method == 'GET':
+        nome_produto = request.GET.get('produto')
+        quantidade = request.GET.get('quantidade')
 
         # Suponha que você busca o produto no banco de dados com base no nome
         try:
             produto = Produtos.objects.get(nome=nome_produto)
-            print(produto)
-        except Produtos.DoesNotExist:
-            # Caso o produto não seja encontrado, você pode tratar isso aqui
-            pass
+            print(f"name = {produto.nome}")
 
-    return render(request, 'vendas/caixa/caixa.html')
+            # Verificar se a quantidade do produto é suficiente
+            if produto.quantidade <= 0:
+                print(f"Produto com nome {nome_produto} está fora de estoque")
+            elif produto.quantidade < int(quantidade):
+                print(f"Não há quantidade suficiente do produto {nome_produto} no estoque")
+            else:
+                produto.quantidade -= int(quantidade)
+                produto.save()
+
+                carrinho = request.session.get('carrinho', {})
+                if not isinstance(carrinho, dict):
+                    carrinho = {}
+                
+                if nome_produto in carrinho:
+                    if isinstance(carrinho[nome_produto], dict):
+                        carrinho[nome_produto]['quantidade'] += int(quantidade)
+                        carrinho[nome_produto]['total'] = int(carrinho[nome_produto]['quantidade']) * int(produto.valor)
+                        print(carrinho[nome_produto]['total'])
+                        
+                    else:
+                        carrinho[nome_produto] = {'quantidade': int(quantidade), 'valor': produto.valor, 'total': int(quantidade) * int(produto.valor)}
+                else:
+                    carrinho[nome_produto] = {'quantidade': int(quantidade), 'valor': produto.valor, 'total': int(quantidade) * int(produto.valor)}
+                
+                carrinho['total_do_carrinho'] = sum(int(item['total']) for item in carrinho.values() if isinstance(item, dict))
+                
+                
+                
+
+                request.session['carrinho'] = carrinho
+
+                
+                
+                
+
+        except Produtos.DoesNotExist:
+            # Caso o produto não seja encontrado, você pode tratar isso aqui[
+            print(f"Produto com nome {nome_produto} não encontrado")
+
+    return render(request, 'vendas/caixa/caixa.html', {'carrinho': carrinho})
 
 def caixa(request):
     pass
@@ -108,3 +146,9 @@ def get_estoque(request):
 
 def codrasto_funcionarios(request):
     return render(request, "RH/contratacao.html")
+
+def finalizar_compra(request):
+    # Limpa o carrinho
+    request.session['carrinho'] = {}
+    # Redireciona o usuário para a página de vendas
+    return redirect('vendas')

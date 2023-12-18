@@ -7,7 +7,7 @@
   .market-list {
     background-color: #f9f9f9;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
   }
@@ -15,13 +15,23 @@
   .list-item {
     display: flex;
     flex-direction: column; /* Ajuste para colocar os elementos em coluna */
-    padding: 10px 0;
+    padding: 5px 0;
     border-bottom: 1px solid #ccc;
   }
 
+  .item-name-valor {
+    margin-bottom: 2px;
+    font-size: 18px; 
+    display: flex;
+    justify-content: space-between;/* Tamanho da fonte para o nome do produto */
+  }
+
   .item-name {
-    margin-bottom: 5px;
-    font-size: 18px; /* Tamanho da fonte para o nome do produto */
+    text-align: left;
+  }
+
+  .item-valor {
+    text-align: right;
   }
 
   .item-details {
@@ -46,7 +56,7 @@
   <div class="row">
     <div class="col-8 text-center mt-5">
       <h1>Caixa</h1>
-      <form method="GET"   class="needs-validation" novalidate style="margin-top: 20px;">
+      <form method="GET" class="needs-validation" novalidate style="margin-top: 20px;">
         {% csrf_token %}
         <div class="form-group mb-3">
           <input class="form-control" type="text" placeholder="Produto" name="produto" required>
@@ -56,36 +66,32 @@
           <input class="form-control" type="text" placeholder="Quantidade" name="quantidade" required>
           <div class="invalid-feedback">Por favor, preencha a quantidade do produto.</div>
         </div>
-        <button class="btn btn-primary" type="submit">Adicionar</button>
+        <button class="btn btn-primary mb-3" type="submit">Adicionar</button>
       </form>
+      <button class="btn btn-secondary">Finalizar</button>
     </div>
 
     <div class="col-4 market-list">
-      <h2>Lista de Compras</h2>
+      <h3>Carrinho</h3>
       <!-- Iterar sobre os itens -->
-      {% for item in itens_no_caixa %}
+      {% for item, detalhes in carrinho.items %}
           <div class="list-item">
-              <span class="item-name">{{ item.produto }}</span>
+            <div class="item-name-valor">
+              <span class="item-name">{{ item }}</span>
+              <span class="item-valor">R$ {{ detalhes.total }}</span>
+            </div>
               <div class="item-details">
-                  <span>{{ item.quantidade }} unidades</span>
-                  <span>R$ {{ item.valor }}</span>
-              </div>
-              <div class="item-details">
-                  <span>R$ { item.quantidade * item.valor }</span> <!-- adicionar um cochetes-->
+                  <span>{{ detalhes.quantidade }} X {{ detalhes.valor }}</span>
               </div>
           </div>
       {% endfor %}
       <!-- Valor total do carrinho -->
       <div class="list-item">
-          <h4>Total: R$ {{ total_do_carrinho }}</h4>
+          <h5>Total: R$ {{ carrinho.total_do_carrinho }}</h5>
       </div>
   </div>
   </div>
 </div>
-  
-  {% if produto %}
-    <h1>Preço: R$ {{ produto.valor }}</h1>
-  {% endif %}
 </div>
 
 <script>
