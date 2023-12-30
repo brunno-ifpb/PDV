@@ -144,11 +144,22 @@ def estoque(request):
 def get_estoque(request):
     pass
 
-def codrasto_funcionarios(request):
-    return render(request, "RH/contratacao.html")
 
-def finalizar_compra(request):
+
+"""def finalizar_compra(request):
     # Limpa o carrinho
     request.session['carrinho'] = {}
     # Redireciona o usuário para a página de vendas
-    return redirect('vendas')
+    return redirect('vendas')"""
+
+def adiministracao_home(request):
+    return render(request, 'adiministracao/adiministracao.html')
+
+def rh(request):
+    return render(request, 'adiministracao/RH/rh_home.html')
+
+def cadrasto_funcionarios(request):
+    return render(request, "adiministracao/RH/contratacao.html")
+
+def demissao(request):
+    return render(request, 'adiministracao/RH/demissao.html')

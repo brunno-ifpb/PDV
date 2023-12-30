@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+{% block conteudo %}
+
+<div>
+    <div class="container mt-5">
+        <div class="card card-body shadow-lg mb-4 mt-5">
+            <form action="{% url 'rh' %}"><button class="form-control mb-3" onmouseover="this.className='btn btn-primary form-control mb-3'" onmouseout="this.className='form-control mb-3'">RH</button></form>
+            <button class="form-control" onmouseover="this.className='btn btn-primary form-control'" onmouseout="this.className='form-control'">Gerente</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

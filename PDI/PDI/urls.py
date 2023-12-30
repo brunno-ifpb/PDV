@@ -23,9 +23,15 @@ urlpatterns = [
 
     path("estoque/home",views.estoque_home,name="estoque_home"),
 
-    path("rh/cadrasto",  views.codrasto_funcionarios, name='cadrasto_funcionarios'),
+    #path('finalizar_compra/', views.finalizar_compra, name='finalizar_compra'),
 
-    path('finalizar_compra/', views.finalizar_compra, name='finalizar_compra'),
+    path('adiministracao', views.adiministracao_home, name='adiministracao'),
+
+    path('administracao/RH', views.rh, name='rh'),
+
+    path("adiministracao/RH/contratacao", views.cadrasto_funcionarios, name='contratacao'),
+
+    path("adiministracao/RH/demissao", views.demissao, name='demissao')
 
 
 
